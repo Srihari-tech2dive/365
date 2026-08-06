@@ -1,0 +1,62 @@
+Why Dynamic Memory?
+
+Suppose the user enters how many numbers they want to store.
+
+Wrong approach:
+
+int arr[100];
+
+What if they only need 5?
+
+95 integers are wasted.
+
+What if they need 1000?
+
+Program fails.
+
+Dynamic allocation solves this.
+
+int n;
+scanf("%d", &n);
+
+int *arr = malloc(n * sizeof(int));
+
+Memory size matches the requirement.
+
+malloc( ) and calloc ( ) 
+
+malloc and calloc are C library functions used to allocate dynamic memory from the heap during program runtime.
+ malloc allocates a single uninitialized block of memory, calloc allocates multiple contiguous blocks and sets them to zero, and both return a pointer or NULL if they fail. 
+
+Key Differences
+
+Arguments: malloc(size) takes one argument (total bytes), while calloc(num, size) takes two (number of elements and size of each element).
+Initial Value: malloc leaves memory uninitialized with random garbage values, whereas calloc automatically initializes every byte to zero.
+Speed: malloc is generally faster because it skips the zero-initialization step, while calloc is slightly slower due to the clearing overhead. 
+
+
+
+malloc () , calloc() and realloc() :
+
+malloc, calloc, and realloc are built-in functions in the C programming language used for dynamic memory allocation.
+They allow a program to request and manage memory from the heap while the program is running. 
+
+malloc (Memory Allocation)
+
+What it does: Reserves a single block of memory of a specific size.
+Initialization: Does not clear the memory. It contains random leftover data (garbage values).
+Syntax: ptr = malloc(size_in_bytes); 
+
+
+calloc (Contiguous Allocation)
+
+What it does: Reserves memory for multiple blocks of items, like an array.
+Initialization: Clears all the memory and sets every byte to zero.
+Syntax: ptr = calloc(number_of_items, size_of_each_item); 
+
+
+realloc (Re-allocation)
+
+What it does: Changes the size of memory you already allocated with malloc or calloc.
+Initialization: Keeps your old data safe, but any new space added is not cleared.
+Syntax: ptr = realloc(ptr, new_size_in_bytes);
