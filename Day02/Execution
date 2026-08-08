@@ -1,0 +1,54 @@
+.h file
+
+
+void and bool 
+
+Engine_Init()
+
+Should it return:
+
+void
+
+or:
+
+bool
+
+Think about initialization.
+
+we want the caller to know whether initialization succeeded.
+
+bool Engine_Init(void);
+
+means:
+
+true  → initialization successful
+false → initialization failed
+
+~~~~~~~~~~~~~~~~~~~~~
+
+Engine_Run()
+
+The engine runs until the application exits.
+
+So:
+
+void Engine_Run(void);
+
+No return value is necessary for now.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#ifndef ENGINE_H
+#define ENGINE_H
+
+protect the header from being included multiple times.
+
+#include <stdbool.h>
+
+gives us:
+
+bool
+true
+false
+
+

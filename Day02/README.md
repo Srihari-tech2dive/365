@@ -1,4 +1,6 @@
-C Memory Fundamentals + Linux Build Proces
+C Memory Fundamentals + Linux Build Process
+
+Pointer 
 
 The stages to compiler :
 Preprocessor
@@ -92,3 +94,136 @@ Used for helper functions that are not part of the module's public API.
 Example:
 
 uart.c ,      uart_init()
+
+
+CODE
+ ↓
+Instructions
+
+STATIC / GLOBAL
+ ↓
+Lives for program lifetime
+
+STACK
+ ↓
+Function calls + automatic local variables
+
+HEAP
+ ↓
+Dynamic runtime memory
+
+
+Pointer :
+
+& — Address-of operator
+
+* — Dereference operator
+
+p   → address
+*p  → value at that address
+
+
+&  → WHERE?
+*  → WHAT?
+&x   Where is x?
+*p   What is stored at the address p points to?
+
+
+When used before a variable:
+
+int x = 10;
+
+&x
+
+means:
+
+"Give me the memory address of x."
+
+Imagine:
+
+Variable       Address       Value
+
+   x           0x1000         10
+   │
+   └───────────────┐
+                   │
+              memory location
+
+Suppose:
+
+int x = 10;
+int *p = &x;
+
+Now:
+
+x
+│
+├── value = 10
+└── address = 0x1000
+
+p
+│
+└── stores 0x1000
+
+So p contains the address of x.
+
+When we write:
+
+*p
+
+we're saying:
+
+"Go to the address stored inside p and access the value there."
+
+So:
+
+printf("%d", *p);
+
+prints:
+
+10
+
+the      int x = 10;    int *p = &x; 
+
+        &x
+         ↓
+┌─────────────────┐
+│       x         │
+│                 │
+│ value = 10      │
+│ address = 1000  │
+└─────────────────┘
+         ↑
+         │
+         p
+so;
+
+*p
+
+means:
+
+Go to address 1000 → get 10.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Quick test
+
+Given:
+
+int speed = 80;
+int *ptr = &speed;
+
+What do these represent?
+
+speed =
+&speed =
+ptr =
+*ptr =
+
+ans:
+speed   = 80
+&speed  = address of speed
+ptr     = address stored in ptr (the address of speed)
+*ptr    = value at that address = 80
+

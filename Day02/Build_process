@@ -1,0 +1,179 @@
+complete build pipeline:
+
+
+main.c
+   ↓
+Preprocessor
+   ↓
+Compiler
+   ↓
+Assembly
+   ↓
+Assembler
+   ↓
+Object file (.o)
+   ↓
+Linker
+   ↓
+Executable
+
+
+~~~~~~~~~~~~~~
+
+             YOUR CODE
+                │
+                ▼
+          ┌─────────────┐
+          │ Preprocessor│
+          └─────────────┘
+                │
+                ▼
+          ┌─────────────┐
+          │   Compiler  │
+          └─────────────┘
+                │
+                ▼
+           Assembly code
+                │
+                ▼
+          ┌─────────────┐
+          │  Assembler  │
+          └─────────────┘
+                │
+                ▼
+             main.o
+                │
+                │
+             Engine.o
+                │
+                ▼
+          ┌─────────────┐
+          │    Linker   │
+          └─────────────┘
+                │
+                ▼
+          Game executable
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Source Code 
+
+the file is main.c
+
+2. Preprocessor
+
+the contents of Engine.h to be inserted into the source during preprocessing.
+
+it handles #include	#define 	, etc ... 
+
+3. Compiler
+
+Translate C into lower-level instructions.
+
+The compiler also performs things like:
+
+Syntax checking
+Type checking
+Optimization
+Code generation
+
+4. Assembly
+
+The compiler may produce assembly language.
+
+5. Assembler
+
+The assembler takes assembly code and converts it into an object file.
+
+7. The Linker 
+
+That's the linker's job.
+
+It combines object files and libraries.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+8. What if the linker can't find it?
+
+This is one of the errors you'll eventually see.
+
+Imagine:
+
+Engine_Init();
+
+was declared:
+
+bool Engine_Init(void);  [ after the preprossor the void or like that convert into bool ... ]
+
+but you forgot to compile/link Engine.c.
+
+The compiler may be perfectly happy because it saw the declaration.
+
+But the linker says:
+
+undefined reference to `Engine_Init`
+
+This is an important distinction:
+
+Compiler problem
+
+"I don't understand this code."
+
+Linker problem
+
+"I know what you're asking for, but I can't find the implementation."
+
+
+~~~~~~~~~~~~~~~~
+
+.c
+ │
+ ▼
+Preprocessor
+ │
+ ▼
+Compiler
+ │
+ ▼
+Assembler
+ │
+ ▼
+.o
+ │
+ ▼
+Linker ← .o + libraries
+ │
+ ▼
+Executable
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Encaplusation
+
+             main.c
+                │
+                │ calls API
+                ▼
+        ┌─────────────────┐
+        │    Engine.h     │
+        │                 │
+        │ Engine_Init()   │
+        │ Engine_Run()    │
+        │ Engine_Shutdown │
+        └────────┬────────┘
+                 │
+                 ▼
+        ┌─────────────────┐
+        │    Engine.c     │
+        │                 │
+        │ SDL             │
+        │ Window          │
+        │ Renderer        │
+        │ Managers        │
+        │ Internal data   │
+        └─────────────────┘
+
+That's encapsulation.
+
+Expose what other modules need; hide what they don't need.
+

@@ -1,0 +1,273 @@
+Remember:
+
+&  → WHERE?
+*  → WHAT?
+
+&x
+
+Where is x?
+
+*p
+
+What is stored at the address p points to?
+
+int speed = 80;
+int *ptr = &speed;
+
+speed   = 80
+&speed  = address of speed
+ptr     = address stored in ptr (the address of speed)
+*ptr    = value at that address = 80
+
+~~~~~~~~~~~~~~
+
+int x=10;
+int *p= &x;
+
+printf("%d",*p);
+
+so;
+
+*p= 10
+
+~~~~~~~~~~~~~~~~~
+
+Pointer and array
+
+int cars[4] = {10, 20, 30, 40};
+
+int *p = cars;
+
+the values of the following:
+
+cars[0]     = 10 
+cars[2]     = 30
+*p          = 10 
+*(p + 2)    = 30 
+
+Pointer-to-pointer:
+
+pointer-->pointer-->data
+
+int x = 50;
+
+int *p = &x;
+
+int **pp = &p;
+
+       pp
+       │
+       ▼
+   ┌────────┐
+   │   p    │
+   │ &x     │
+   └────────┘
+       │
+       ▼ 
+   ┌────────┐
+   │   x    │
+   │  50    │
+   └────────┘
+
+*pp  gives p
+**pp gives x which is 50 
+
+~~~~~~~~~~~~~~~~
+
+int x = 100;
+
+int *p = &x;
+
+int **pp = &p;
+
+x
+│
+│ contains 100
+▼
+[ 100 ]
+
+p
+│
+│ contains address of x
+▼
+[ &x ]
+
+pp
+│
+│ contains address of p
+▼
+[ &p ]
+
+
+*p
+
+p contains the address of x.
+
+so; *p = 100
+
+~~~~~~~~~
+
+*pp
+
+pp contains the address of p.
+
+so; it means
+
+Go to p's address and get what's stored there.
+
+What's stored in p?
+
+&x
+
+Therefore:
+
+*pp = &x 
+
+not 100 which is x = 100 
+
+~~~~~~~~~~~
+
+**pp
+
+First *pp gives:
+
+&x
+
+Then the second * dereferences that:
+
+**pp
+ ↓
+*(&x)
+ ↓
+100
+
+Therefore:
+
+**pp = 100 
+
+~~~~~~~~~~~~
+
+*p   = 100
+*pp  = &x
+**pp = 100
+
+Pattern : 
+
+p      → x's address
+*p     → x's value
+
+pp     → p's address
+*pp    → p's value = x's address
+**pp   → x's value
+
+
+~~~~~~~~~~~~~~~~~~~
+
+
+struct + Pointers
+
+
+object.member
+
+The . operator means:
+
+Access a member of this struct object.
+
+player.speed
+
+means:
+
+Give me the speed member inside player
+
+(*p).speed
+
+This means:
+
+*p → get the Player object
+.speed → access its speed
+
+but rather than that (*p).speed it's like 
+
+p->speed
+
+~~~~~~~~~~~~~~~
+
+struct Car
+{
+    int speed;
+    int fuel;
+};
+
+struct Car car = {80, 50};
+
+struct Car *p = &car;
+
+1. car.speed       =
+2. p->speed        =
+3. (*p).fuel       =
+4. p->fuel         =
+
+1. car → struct Car → speed → 80	so ; car.speed = 80
+2. p points to the whole car.
+   Then ->speed tells C:
+   Go to the Car that p points to, then access its speed member
+
+p
+ ↓
+car
+ ├── speed = 80
+ └── fuel  = 50		so ; p->speed = 80
+
+
+~~~~~~~~~~~~~~
+
+malloc() and free() 
+
+typedef struct
+{
+    int health;
+} Enemy;
+
+Enemy *enemy = malloc(sizeof(Enemy));
+
+if (enemy != NULL)
+{
+    enemy->health = 100;
+}
+
+
+Answer these:
+
+A.
+
+Where is enemy itself stored conceptually?
+
+B.
+
+Where is the actual Enemy object allocated by malloc()?
+
+C.
+
+What happens if we do:
+
+free(enemy);
+D.
+
+After free(enemy), can we safely do:
+
+enemy->health = 50;
+
+Why or why not?
+
+
+ANS :
+
+enemy is the pointer variable. Since it's a local variable, it is typically on the stack.
+
+The actual Enemy object created by malloc() is on the heap. 
+
+The heap allocation is released and is no longer yours to access.
+
+The memory has been freed, so accessing it is undefined behavior.  [The pointer variable enemy may still contain the old address, but that address no longer refers to a valid allocation owned by your program. ]
+
+
